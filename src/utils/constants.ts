@@ -11,10 +11,8 @@ export const CL_PAGES = {
 };
 
 export const CL_COLORS = {
-  secondary: '#746A64',
+  primary: '#0071dc',
   white: '#FFFFFF',
-  gray: '#DEDEDE',
-  white100: '#FAFAFA',
 };
 
 export const CL_TEXTS = {
