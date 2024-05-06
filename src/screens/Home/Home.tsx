@@ -1,27 +1,33 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Linking, StyleSheet} from 'react-native';
+import WebView from 'react-native-webview';
 import {CL_COLORS} from '../../utils/constants';
 
-export const HomeScreen = () => {
-  const openWebView = () => {
-    console.log('opened webview...');
-  };
+const uri =
+  'https://www.walmart.com/account/login?vid=oaoh&tid=0&returnUrl=%2F';
 
+export const HomeScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.loginBtn} onPress={openWebView}>
-        <Text style={styles.loginText}>Login to Wallmart</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <WebView
+      source={{
+        uri,
+      }}
+      originWhitelist={['*']}
+      onNavigationStateChange={event => {
+        if (event.url !== uri) {
+          Linking.openURL(event.url);
+        }
+      }}
+      javaScriptEnabled={true}
+      domStorageEnabled={true}
+      startInLoadingState={true}
+      scalesPageToFit={true}
+      style={styles.webview}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   loginBtn: {
     paddingHorizontal: 10,
     paddingVertical: 10,
@@ -30,5 +36,8 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: CL_COLORS.white,
+  },
+  webview: {
+    flex: 1,
   },
 });
